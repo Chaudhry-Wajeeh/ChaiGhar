@@ -27,7 +27,8 @@ fun CategoryChip(
 ) {
     Box(
         modifier = Modifier
-            .width(120.dp).height(40.dp)
+            .width(120.dp).height(45.dp)
+            .padding(bottom = 5.dp)
             .clip(RoundedCornerShape(6.dp))
             .clickable{onSelected}
             .background( color = if (isSelected) {LightBrown} else { GrayLight.copy(alpha = 0.7f) } ),

@@ -1,23 +1,27 @@
-package com.chaighar.uiscreens.homescreen
+package com.chaighar.presentation.uiscreens.homescreen
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.chaighar.model.ProductModel
+import com.chaighar.domain.model.ProductModel
 
 
 @Composable
-fun ProductsGrid(products: List<ProductModel>) {
+fun ProductsGrid(
+    products: List<ProductModel>,
+    topContent: @Composable () -> Unit
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
+        item {
+            topContent()
+        }
         items(products.chunked(2)) { rowItems ->
             Row(
                 modifier = Modifier.fillMaxWidth()

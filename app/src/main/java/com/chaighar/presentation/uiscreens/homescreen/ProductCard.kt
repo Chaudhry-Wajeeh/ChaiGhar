@@ -1,4 +1,4 @@
-package com.chaighar.uiscreens.homescreen
+package com.chaighar.presentation.uiscreens.homescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,13 +31,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chaighar.R
-import com.chaighar.model.ProductModel
-import com.chaighar.ui.theme.GrayLight
-import com.chaighar.ui.theme.LightBrown
-import com.chaighar.ui.theme.LightGraySuper
+import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.theme.GrayLight
+import com.chaighar.presentation.theme.LightBrown
 
 @Composable
 fun ProductCard(

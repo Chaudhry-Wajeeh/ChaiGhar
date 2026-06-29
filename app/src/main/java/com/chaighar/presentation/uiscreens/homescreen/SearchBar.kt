@@ -1,4 +1,4 @@
-package com.chaighar.uiscreens.homescreen
+package com.chaighar.presentation.uiscreens.homescreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -30,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chaighar.R
-import com.chaighar.ui.theme.ChaiBrown
-import com.chaighar.ui.theme.IvoryWhite
+import com.chaighar.presentation.theme.ChaiBrown
+import com.chaighar.presentation.theme.IvoryWhite
 
 @SuppressLint("InvalidColorHexValue")
 @Preview

@@ -1,4 +1,4 @@
-package com.chaighar.uiscreens.welcomeS
+package com.chaighar.presentation.uiscreens.welcomeS
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,8 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chaighar.R
-import com.chaighar.ui.theme.LightBrown
-import com.chaighar.ui.theme.Orange1
+import com.chaighar.presentation.theme.LightBrown
 
 @Preview
 @Composable

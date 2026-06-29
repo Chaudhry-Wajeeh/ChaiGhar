@@ -1,10 +1,8 @@
-package com.chaighar.uiscreens.ui_components
+package com.chaighar.presentation.ui_components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -16,8 +14,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chaighar.R
-import com.chaighar.ui.theme.LightBrown
-import com.chaighar.ui.theme.LightGraySuper
+import com.chaighar.presentation.theme.LightBrown
+import com.chaighar.presentation.theme.LightGraySuper
 
 @Preview
 @Composable

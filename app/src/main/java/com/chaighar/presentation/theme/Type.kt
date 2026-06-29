@@ -1,4 +1,4 @@
-package com.chaighar.ui.theme
+package com.chaighar.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

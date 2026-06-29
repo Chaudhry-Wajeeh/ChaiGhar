@@ -1,4 +1,4 @@
-package com.chaighar.uiscreens.homescreen
+package com.chaighar.presentation.uiscreens.homescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,8 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chaighar.R
-import com.chaighar.model.ProductModel
-import com.chaighar.uiscreens.ui_components.BottomNavbar
+import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.ui_components.BottomNavbar
 
 @Preview
 @Composable
@@ -76,17 +76,7 @@ fun HomeScreen() {
 
             SearchBar()
 
-            Spacer(modifier = Modifier.height(35.dp))
-
-            Image(
-                painter = painterResource(R.drawable.promo_h_banner_1), contentDescription = "Promo Home Banner",
-                modifier = Modifier.clip(shape = RoundedCornerShape(
-                    topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp
-                ))
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-            HomeCategories()
+            Spacer(modifier = Modifier.height(15.dp))
 
             val products = listOf(
                 ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 50.0, imageRes = R.drawable.doodh_patti),
@@ -97,7 +87,19 @@ fun HomeScreen() {
                 ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
             )
 
-            ProductsGrid(products = products)
+            ProductsGrid(products = products) {
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Image(
+                    painter = painterResource(R.drawable.promo_h_banner_1), contentDescription = "Promo Home Banner",
+                    modifier = Modifier.clip(shape = RoundedCornerShape(
+                        topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp
+                    ))
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+                HomeCategories()
+            }
         }
     }
 }

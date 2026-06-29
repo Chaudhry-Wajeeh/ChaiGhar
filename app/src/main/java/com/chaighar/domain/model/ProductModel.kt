@@ -1,4 +1,4 @@
-package com.chaighar.model
+package com.chaighar.domain.model
 
 data class ProductModel(
     val id: Int,

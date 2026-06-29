@@ -1,4 +1,4 @@
-package com.chaighar.uiscreens.homescreen
+package com.chaighar.presentation.uiscreens.homescreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.chaighar.ui.theme.GrayLight
-import com.chaighar.ui.theme.LightBrown
+import com.chaighar.presentation.theme.GrayLight
+import com.chaighar.presentation.theme.LightBrown
 
 @Composable
 fun CategoryChip(

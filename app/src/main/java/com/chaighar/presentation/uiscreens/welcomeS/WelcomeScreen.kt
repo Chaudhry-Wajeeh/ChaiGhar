@@ -23,12 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.LightBrown
 
-@Preview
+
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavController) {
     Column(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         Image(
             painter = painterResource(id = R.drawable.chaicupintro),
@@ -59,7 +61,8 @@ fun WelcomeScreen() {
             Spacer(modifier = Modifier.height(30.dp))
 
             Button(
-                onClick = {}, colors = ButtonDefaults.buttonColors(LightBrown),
+                onClick = { navController.navigate(Routes.HomeScreen) },
+                colors = ButtonDefaults.buttonColors(LightBrown),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 15.5.dp).height(50.dp),
                 shape = RoundedCornerShape(10.dp)
             ) {

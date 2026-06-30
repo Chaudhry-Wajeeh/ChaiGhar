@@ -5,12 +5,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
 
-@Preview
+
 @Composable
-fun DetailedScreen() {
+fun DetailedScreen(productId: Int, navController: NavController) {
     val products = listOf(
         ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 50.0, imageRes = R.drawable.doodh_patti),
         ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 50.0, imageRes = R.drawable.kashmiri_chai),
@@ -20,6 +21,7 @@ fun DetailedScreen() {
         ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
     )
 
+    val selectedProduct = products.find { it.id == 1 }
     Scaffold(
         topBar = {DetailScreenTBar()},
         bottomBar = {DetailSBottomBar()}
@@ -27,6 +29,7 @@ fun DetailedScreen() {
         LazyColumn {
             item {
 
+//                DproductContent( products= selectedProduct, )
             }
         }
     }

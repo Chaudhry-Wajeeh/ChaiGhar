@@ -29,13 +29,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.ui_components.BottomNavbar
 
-@Preview
+
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val location = "Kuri Rd, Shakrial"
     Scaffold(
         bottomBar = { BottomNavbar() }

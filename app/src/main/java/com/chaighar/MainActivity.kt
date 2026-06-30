@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.chaighar.presentation.navigation.NavGraph
 import com.chaighar.presentation.theme.ChaiGharTheme
 import com.chaighar.presentation.uiscreens.detail_screen.DetailedScreen
 import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
@@ -14,8 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ChaiGharTheme {
-                DetailedScreen()
-//                HomeScreen()
+                NavGraph()
             }
         }
     }

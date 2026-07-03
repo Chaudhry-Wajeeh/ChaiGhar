@@ -1,5 +1,6 @@
 package com.chaighar.presentation.uiscreens.detail_screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,39 +16,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.presentation.theme.IvoryWhite
 import com.chaighar.presentation.theme.LightGraySuper
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
-fun DetailScreenTBar() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Details", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold
-                    )
-                        },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = IvoryWhite),
-                actions = {
-                    Icon(
-                        painter = painterResource(R.drawable.regular_outline_heart),
-                        contentDescription = "Add to Favorite",
-                        modifier = Modifier.padding(end = 10.dp)
-                    )
+fun DetailScreenTBar(navController: NavController) {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Details", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
+            )
                 },
-                navigationIcon = {
-                    Icon(
-                        painter = painterResource(R.drawable.regular_outline_arrow_right),
-                        contentDescription = "Back",
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
-                }
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = IvoryWhite),
+        actions = {
+            Icon(
+                painter = painterResource(R.drawable.regular_outline_heart),
+                contentDescription = "Add to Favorite",
+                modifier = Modifier.padding(end = 10.dp)
+            )
+                  },
+        navigationIcon = {
+            Icon(
+                painter = painterResource(R.drawable.regular_outline_arrow_right),
+                contentDescription = "Back",
+                modifier = Modifier
+                    .padding(start = 10.dp).clickable( onClick = {navController.navigateUp()} )
             )
         }
-    ) {}
+    )
 }

@@ -2,8 +2,10 @@ package com.chaighar.presentation.uiscreens.detail_screen
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.chaighar.R
@@ -21,15 +23,20 @@ fun DetailedScreen(productId: Int, navController: NavController) {
         ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
     )
 
-    val selectedProduct = products.find { it.id == 1 }
+    val selectedProduct = products.find { it.id == productId }
+
+    if (selectedProduct == null) {
+        Text(text = "Product not found!", color = Color.Red)
+        return
+    }
     Scaffold(
-        topBar = {DetailScreenTBar()},
+        topBar = {DetailScreenTBar(navController)},
         bottomBar = {DetailSBottomBar()}
     ) { innerPadding ->
         LazyColumn {
             item {
 
-//                DproductContent( products= selectedProduct, )
+                  DproductContent( product = selectedProduct, innerPadding = innerPadding)
             }
         }
     }

@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.theme.CreamBeige
 import com.chaighar.presentation.theme.GrayLight
 import com.chaighar.presentation.theme.IvoryWhite
 
@@ -60,8 +61,10 @@ fun DproductContent(product: ProductModel, innerPadding: PaddingValues) {
         Row {
 
             Text(
-                text = "Dark / Hot", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = GrayLight
+                text = "Dark / Hot", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = CreamBeige
             )
+
+            Spacer(modifier = Modifier.weight(1f))
 
             Icon(
                 painter = painterResource(R.drawable.default_bean), contentDescription = null,
@@ -87,7 +90,7 @@ fun DproductContent(product: ProductModel, innerPadding: PaddingValues) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = product.description, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = GrayLight
+            text = product.description, fontSize = 16.sp, fontWeight = FontWeight.Medium, color = CreamBeige
         )
 
         Spacer(modifier = Modifier.height(24.dp))

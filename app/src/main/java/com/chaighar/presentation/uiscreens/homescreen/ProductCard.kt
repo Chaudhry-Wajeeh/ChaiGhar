@@ -32,19 +32,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.GrayLight
 import com.chaighar.presentation.theme.LightBrown
 
 @Composable
 fun ProductCard(
-    product: ProductModel, modifier: Modifier = Modifier
+    product: ProductModel, modifier: Modifier = Modifier, navController: NavController
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 5.dp, vertical = 10.dp),
+            .padding(horizontal = 5.dp, vertical = 10.dp)
+            .clickable{ navController.navigate(Routes.DetailedScreen(product.id) ) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)

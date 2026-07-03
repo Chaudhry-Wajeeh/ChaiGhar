@@ -88,7 +88,7 @@ fun HomeScreen(navController: NavController) {
                 ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
             )
 
-            ProductsGrid(products = products) {
+            ProductsGrid(products = products, navController = navController ) {
 
                 Spacer(modifier = Modifier.height(20.dp))
                 Image(

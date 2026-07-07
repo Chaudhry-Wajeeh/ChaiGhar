@@ -31,7 +31,7 @@ fun BottomNavbar(navController: NavController, route: String) {
 
     NavigationBar(
         containerColor = LightGraySuper,
-        modifier = Modifier.height(115.dp)
+        modifier = Modifier.height(120.dp)
     ) {
         navItems.forEachIndexed { index, item ->
             NavigationBarItem(
@@ -53,7 +53,7 @@ fun BottomNavbar(navController: NavController, route: String) {
                         restoreState = true
                     }
                 },
-                selected = true,
+                selected = item.title == route,
                 alwaysShowLabel = false,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = LightBrown,

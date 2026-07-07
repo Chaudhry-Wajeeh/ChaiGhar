@@ -16,11 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.IvoryWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartSTopBar(navController: NavController) {
+fun CartSTopBar() {
     TopAppBar(
         title = {
             Text(
@@ -28,14 +29,6 @@ fun CartSTopBar(navController: NavController) {
                 fontWeight = FontWeight.Bold
             )
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = IvoryWhite),
-        navigationIcon = {
-            Icon(
-                painter = painterResource(R.drawable.regular_outline_arrow_right),
-                contentDescription = "Back",
-                modifier = Modifier
-                    .padding(start = 10.dp).clickable( onClick = {navController.navigateUp()} )
-            )
-        }
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = IvoryWhite)
     )
 }

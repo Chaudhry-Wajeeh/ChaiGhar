@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.chaighar.presentation.uiscreens.cartScreen.CartScreen
 import com.chaighar.presentation.uiscreens.detail_screen.DetailedScreen
 import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
 import com.chaighar.presentation.uiscreens.welcomeS.WelcomeScreen
@@ -28,6 +29,10 @@ fun NavGraph() {
         composable<Routes.DetailedScreen> { backStackEntry ->
             val args = backStackEntry.toRoute<Routes.DetailedScreen>()
             DetailedScreen(productId = args.productId, navController = navController)
+        }
+
+        composable<Routes.CartScreen> {
+            CartScreen(navController = navController)
         }
     }
 }

@@ -39,7 +39,7 @@ import com.chaighar.presentation.ui_components.BottomNavbar
 fun HomeScreen(navController: NavController) {
     val location = "Kuri Rd, Shakrial"
     Scaffold(
-        bottomBar = { BottomNavbar() }
+        bottomBar = { BottomNavbar(navController = navController, "Home") }
     ) { innerPadding ->
         Box(
             modifier = Modifier.fillMaxWidth()

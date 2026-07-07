@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -30,25 +33,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.LightBrown
+import com.chaighar.presentation.ui_components.BottomNavbar
 
 
-@Preview
 @Composable
-fun CartScreen() {
+fun CartScreen(navController: NavController) {
     val cartProducts = listOf(
         ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 40.0, imageRes = R.drawable.doodh_patti),
         ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 60.0, imageRes = R.drawable.kashmiri_chai),
         ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 50.0, imageRes = R.drawable.masala_chai),
     )
-    var amount by remember { mutableStateOf(150) }
-    var deliveryFee by remember { mutableStateOf(20) }
+    var amount by remember { mutableStateOf(150.0) }
+    var deliveryFee by remember { mutableStateOf(20.0) }
     var total by remember { mutableStateOf(amount + deliveryFee) }
 
     Scaffold(
-        topBar = {CartSTopBar()}
+        topBar = {CartSTopBar(navController = navController)},
+        bottomBar = { BottomNavbar(navController = navController) }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -108,40 +114,7 @@ fun CartScreen() {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
-                Card(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.mobile_banking),
-                                contentDescription = "Payment Method", modifier = Modifier.size(30.dp),
-                                tint = LightBrown
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-
-                            Column() {
-                                Text(
-                                    text = "Online Payment",
-                                    style = MaterialTheme.typography.bodyMedium.copy(
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                )
-
-                                Text(
-                                    text = "Pkr $total",
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-
-                            Box() {}
-                        }
-                    }
-                }
+                PaymentSelectionCard(total = total)
             }
         }
     }

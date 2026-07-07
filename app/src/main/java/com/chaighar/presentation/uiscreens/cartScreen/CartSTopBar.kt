@@ -20,7 +20,7 @@ import com.chaighar.presentation.theme.IvoryWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartSTopBar(/*navController: NavController*/) {
+fun CartSTopBar(navController: NavController) {
     TopAppBar(
         title = {
             Text(
@@ -34,7 +34,7 @@ fun CartSTopBar(/*navController: NavController*/) {
                 painter = painterResource(R.drawable.regular_outline_arrow_right),
                 contentDescription = "Back",
                 modifier = Modifier
-                    .padding(start = 10.dp).clickable( onClick = {/*navController.navigateUp()*/} )
+                    .padding(start = 10.dp).clickable( onClick = {navController.navigateUp()} )
             )
         }
     )

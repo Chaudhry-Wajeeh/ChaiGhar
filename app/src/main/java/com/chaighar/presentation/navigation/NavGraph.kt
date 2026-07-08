@@ -8,7 +8,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.chaighar.presentation.uiscreens.cartScreen.CartScreen
 import com.chaighar.presentation.uiscreens.detail_screen.DetailedScreen
+import com.chaighar.presentation.uiscreens.favourite_screen.FavouritesScreen
 import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
+import com.chaighar.presentation.uiscreens.profile_screen.ProfileScreen
 import com.chaighar.presentation.uiscreens.welcomeS.WelcomeScreen
 
 @Composable
@@ -33,6 +35,14 @@ fun NavGraph() {
 
         composable<Routes.CartScreen> {
             CartScreen(navController = navController)
+        }
+
+        composable<Routes.FavoriteScreen> {
+            FavouritesScreen(navController = navController)
+        }
+
+        composable<Routes.ProfileScreen> {
+            ProfileScreen(navController = navController)
         }
     }
 }

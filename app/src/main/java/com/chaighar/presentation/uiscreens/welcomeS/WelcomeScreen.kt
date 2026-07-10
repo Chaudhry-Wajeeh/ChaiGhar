@@ -61,7 +61,7 @@ fun WelcomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
 
             Button(
-                onClick = { navController.navigate(Routes.HomeScreen) },
+                onClick = { navController.navigate(Routes.SignUpScreen) },
                 colors = ButtonDefaults.buttonColors(LightBrown),
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 15.5.dp).height(50.dp),
                 shape = RoundedCornerShape(10.dp)

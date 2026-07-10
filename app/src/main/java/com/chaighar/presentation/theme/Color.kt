@@ -20,3 +20,5 @@ val ChocolateGray = Color(0xFF313131)
 val CreamBeige = Color(0xFFEBD4C4)
 val ChaiBrown = Color(0xFFC47B4D)
 val GrayLight = Color(0xFFE1E1E1)
+
+val BlueLight = Color(0xFF2196F3)

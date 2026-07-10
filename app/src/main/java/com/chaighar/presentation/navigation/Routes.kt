@@ -21,4 +21,10 @@ sealed class Routes {
 
     @Serializable
     object FavoriteScreen: Routes()
+
+    @Serializable
+    object LoginScreen: Routes()
+
+    @Serializable
+    object SignUpScreen: Routes()
 }

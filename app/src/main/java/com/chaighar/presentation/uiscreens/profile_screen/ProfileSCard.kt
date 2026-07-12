@@ -1,18 +1,13 @@
 package com.chaighar.presentation.uiscreens.profile_screen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,41 +22,28 @@ import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.LightBrown
 
 @Composable
-fun ProfileSCard(navController: NavController) {
+fun ProfileSCard(
+    navController: NavController,
+    cardData: ProfileCardModel = ProfileCardModel(
+        icon = Icons.Default.Home, text = "Home Screen", onClick = { navController.navigate(Routes.HomeScreen) }
+    )
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { navController.navigate(Routes.CartScreen) },
+            .clickable { cardData.onClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            imageVector = Icons.Default.ShoppingCart,
-            contentDescription = "Cart",
+            imageVector = cardData.icon,
+            contentDescription = cardData.icon.name,
             tint = LightBrown,
             modifier = Modifier.size(28.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
 
         Text(
-            text = "Cart", fontSize = 22.sp, color = Color.DarkGray, maxLines = 1, overflow = TextOverflow.Ellipsis
+            text = cardData.text, fontSize = 22.sp, color = Color.DarkGray, maxLines = 1, overflow = TextOverflow.Ellipsis
         )
     }
-    Spacer(modifier = Modifier.height(6.dp))
-
-    /*Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { navController.navigate(Routes.FavoriteScreen) },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            imageVector = Icons.Default.Favorite,
-            contentDescription = "Fav",
-            tint = LightBrown,
-            modifier = Modifier.size(28.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Text(text = "Favourites", fontSize = 22.sp, color = Color.DarkGray)
-    }*/
 }

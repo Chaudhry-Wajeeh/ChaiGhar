@@ -144,7 +144,7 @@ fun LoginScreen(navController: NavController, viewModel: AuthViewModel = viewMod
                 modifier = Modifier.fillMaxWidth(.8f).height(53.dp),
                 colors = ButtonDefaults.buttonColors(LightBrown)
             ) {
-                Text(text = "Sign Up", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+                Text(text = "Login", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
             }
             Spacer(modifier = Modifier.height(36.dp))
 

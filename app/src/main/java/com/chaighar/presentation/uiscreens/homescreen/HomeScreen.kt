@@ -1,5 +1,6 @@
 package com.chaighar.presentation.uiscreens.homescreen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,11 +20,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,11 +35,30 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.ui_components.BottomNavbar
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
 fun HomeScreen(navController: NavController) {
+
+    val auth = FirebaseAuth.getInstance()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        auth.currentUser?.reload()?.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                auth.signOut()
+                Toast.makeText(context, "Session expired or account deleted!", Toast.LENGTH_LONG).show()
+
+                navController.navigate(Routes.WelcomeScreen) {
+                    popUpTo(Routes.HomeScreen) {inclusive = true}
+                }
+            }
+        }
+    }
+
     val location = "Kuri Rd, Shakrial"
     Scaffold(
         bottomBar = { BottomNavbar(navController = navController, "Home") }

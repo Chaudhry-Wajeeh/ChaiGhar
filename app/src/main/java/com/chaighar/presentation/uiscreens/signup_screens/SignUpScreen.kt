@@ -146,8 +146,8 @@ fun SignUpScreen(navController: NavController, viewModel: AuthViewModel = viewMo
 
             Button(
                 onClick = {
-                    if (email.isNotEmpty() && password.isNotEmpty()) {
-                        viewModel.signUp(email = email, password = password) { success ->
+                    if ( userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                        viewModel.signUp(name = userName ,email = email, password = password) { success ->
                             if (success) {
                                 navController.navigate(Routes.HomeScreen) {
                                     popUpTo(navController.graph.startDestinationId) {inclusive = true}
@@ -157,7 +157,7 @@ fun SignUpScreen(navController: NavController, viewModel: AuthViewModel = viewMo
                             }
                         }
                     } else {
-                        Toast.makeText(context, "Email or Password field are empty", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Email/Password or Name field are empty", Toast.LENGTH_SHORT).show()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(.8f).height(53.dp),

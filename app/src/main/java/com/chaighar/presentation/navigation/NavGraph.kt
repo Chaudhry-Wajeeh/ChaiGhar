@@ -14,13 +14,17 @@ import com.chaighar.presentation.uiscreens.profile_screen.ProfileScreen
 import com.chaighar.presentation.uiscreens.signup_screens.LoginScreen
 import com.chaighar.presentation.uiscreens.signup_screens.SignUpScreen
 import com.chaighar.presentation.uiscreens.welcomeS.WelcomeScreen
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val startDestination = if (currentUser != null) { Routes.HomeScreen }else { Routes.WelcomeScreen }
+
 
     NavHost(
-        navController = navController, startDestination = Routes.WelcomeScreen
+        navController = navController, startDestination = startDestination
     ) {
         composable<Routes.WelcomeScreen> {
             WelcomeScreen(navController = navController)

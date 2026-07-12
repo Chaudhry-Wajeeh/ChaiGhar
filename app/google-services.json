@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939434946818",
+    "project_id": "chaighar-b46a2",
+    "storage_bucket": "chaighar-b46a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939434946818:android:38fe4be0335f6dacdb521b",
+        "android_client_info": {
+          "package_name": "com.chaighar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACPzkbwc77HLIKIxZAX5lIQpdXOKhHi9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

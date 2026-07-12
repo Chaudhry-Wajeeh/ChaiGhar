@@ -1,5 +1,6 @@
 package com.chaighar.presentation.uiscreens.signup_screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,21 +40,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.AuthViewModel
 import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.BlueLight
 import com.chaighar.presentation.theme.LightBrown
 
 @Composable
-fun SignUpScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController, viewModel: AuthViewModel = viewModel()) {
 
+    val context = LocalContext.current
     var userName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -140,7 +145,21 @@ fun SignUpScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(30.dp))
 
             Button(
-                onClick = {navController.navigate(Routes.HomeScreen)},
+                onClick = {
+                    if (email.isNotEmpty() && password.isNotEmpty()) {
+                        viewModel.signUp(email = email, password = password) { success ->
+                            if (success) {
+                                navController.navigate(Routes.HomeScreen) {
+                                    popUpTo(navController.graph.startDestinationId) {inclusive = true}
+                                }
+                            } else {
+                                Toast.makeText(context, "SignUp Failed! Invalid email or password", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context, "Email or Password field are empty", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(.8f).height(53.dp),
                 colors = ButtonDefaults.buttonColors(LightBrown)
             ) {

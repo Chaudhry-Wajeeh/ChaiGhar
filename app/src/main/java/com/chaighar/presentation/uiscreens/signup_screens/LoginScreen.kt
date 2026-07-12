@@ -1,5 +1,7 @@
 package com.chaighar.presentation.uiscreens.signup_screens
 
+import android.media.Image
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,20 +40,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.AuthViewModel
 import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.BlueLight
 import com.chaighar.presentation.theme.LightBrown
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, viewModel: AuthViewModel = viewModel()) {
+
+    val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -59,8 +65,10 @@ fun LoginScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bg_image_signup_screen), contentDescription = "BG_Image",
-            modifier = Modifier.fillMaxSize(), contentScale = ContentScale.FillBounds
+            painter = painterResource(id = R.drawable.bg_image_signup_screen),
+            contentDescription = "BG_Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
         )
 
         Column(
@@ -118,7 +126,21 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(26.dp))
 
             Button(
-                onClick = { navController.navigate(Routes.HomeScreen)},
+                onClick = {
+                    if (email.isNotEmpty() && password.isNotEmpty()) {
+                        viewModel.login(email = email, password = password) { success ->
+                            if (success) {
+                                navController.navigate(Routes.HomeScreen) {
+                                    popUpTo(navController.graph.startDestinationId) {inclusive = true}
+                                }
+                            }else {
+                                Toast.makeText(context, "Login Failed! Invalid credentials or account doesn't exist", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context, "Email or Password field are empty", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(.8f).height(53.dp),
                 colors = ButtonDefaults.buttonColors(LightBrown)
             ) {

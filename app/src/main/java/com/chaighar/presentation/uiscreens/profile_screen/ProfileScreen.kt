@@ -48,13 +48,13 @@ fun ProfileScreen(navController: NavController) {
 
     Scaffold(
         bottomBar = { BottomNavbar(navController = navController, "Profile") }
-    ) {
+    ) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxWidth().height(140.dp)
                 .clip(shape = RoundedCornerShape(bottomStart = 110.dp, bottomEnd = 110.dp))
                 .background(color = IvoryWhite)
-        ) { }
+        )
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp)
         ) {
@@ -107,46 +107,13 @@ fun ProfileScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(20.dp)
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .clickable { navController.navigate(Routes.CartScreen) },
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ShoppingCart,
-                            contentDescription = "Cart",
-                            tint = LightBrown,
-                            modifier = Modifier.size(28.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        Text(text = "Cart", fontSize = 22.sp, color = Color.DarkGray)
-                    }
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
+                    ProfileSCard(navController = navController)
                     HorizontalDivider(
                         thickness = 1.dp, color = Color.Gray,
-                        modifier = Modifier.padding(horizontal = 2.dp).fillMaxWidth()
+                        modifier = Modifier
+                            .padding(horizontal = 2.dp)
+                            .fillMaxWidth()
                     )
-
-                    Spacer(modifier = Modifier.height(6.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .clickable { navController.navigate(Routes.FavoriteScreen) },
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = "Fav",
-                            tint = LightBrown,
-                            modifier = Modifier.size(28.dp)
-                        )
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        Text(text = "Favourites", fontSize = 22.sp, color = Color.DarkGray)
-                    }
                 }
             }
         }

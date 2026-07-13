@@ -21,6 +21,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,10 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.FavViewModel
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.navigation.Routes
+import com.chaighar.presentation.ui_components.AppMessage
 import com.chaighar.presentation.ui_components.BottomNavbar
 import com.google.firebase.auth.FirebaseAuth
 
@@ -45,6 +52,9 @@ fun HomeScreen(navController: NavController) {
 
     val auth = FirebaseAuth.getInstance()
     val context = LocalContext.current
+    val favViewModel: FavViewModel = viewModel()
+    var showFavDialog by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(Unit) {
         auth.currentUser?.reload()?.addOnCompleteListener { task ->
@@ -110,7 +120,20 @@ fun HomeScreen(navController: NavController) {
                 ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
             )
 
-            ProductsGrid(products = products, navController = navController ) {
+            ProductsGrid(
+                products = products, navController = navController, onFavoriteClick = {clickedProduct ->
+
+                    favViewModel.addFavourite(
+                        productId = clickedProduct.id, name = clickedProduct.name, description = clickedProduct.description
+                    ){
+                        if (it) {
+                            showFavDialog = true
+                        }else {
+                            Toast.makeText(context, "Failed to add to Favourites", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            ) {
 
                 Spacer(modifier = Modifier.height(20.dp))
                 Image(
@@ -125,4 +148,10 @@ fun HomeScreen(navController: NavController) {
             }
         }
     }
+
+    AppMessage(
+        show = showFavDialog, title = "Added to Favourites",
+        message = "Item has been added to Favourites.",
+        onDismiss = { showFavDialog = false }
+    )
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -31,19 +32,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.chaighar.presentation.navigation.Routes
+import com.chaighar.presentation.theme.BrownLight
 import com.chaighar.presentation.theme.GrayLight
 import com.chaighar.presentation.theme.IvoryWhite
 import com.chaighar.presentation.theme.LightBrown
 import com.chaighar.presentation.ui_components.BottomNavbar
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun ProfileScreen(navController: NavController) {
 
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val userName = currentUser?.displayName ?: "No Name"
+
     val cardDataList = listOf(
         ProfileCardModel(icon = Icons.Default.ShoppingCart, text = "Cart", onClick = { navController.navigate(Routes.CartScreen) }),
-        ProfileCardModel(icon = Icons.Default.Favorite, text = "Favourites", onClick = { navController.navigate(Routes.FavoriteScreen) })
+        ProfileCardModel(icon = Icons.Default.Favorite, text = "Favourites", onClick = { navController.navigate(Routes.FavoriteScreen) }),
+        ProfileCardModel(icon = Icons.Default.Person, text = "Personal Info", onClick = { navController.navigate(Routes.PersonalInfo) }),
+        ProfileCardModel(icon = Icons.Default.AccountCircle, text = "Account Info", onClick = { navController.navigate(Routes.AccountInfo) })
     )
-    val address = "Kuri Road,\nShakrial Rawalpindi,\nPunjab - 44001"
 
     Scaffold(
         bottomBar = { BottomNavbar(navController = navController, "Profile") }
@@ -65,7 +72,7 @@ fun ProfileScreen(navController: NavController) {
                 Box(
                     modifier = Modifier
                         .size(120.dp).clip(CircleShape)
-                        .background(color = LightBrown.copy(alpha = 0.15f)),
+                        .background(color = BrownLight.copy(alpha = 0.3f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -77,27 +84,11 @@ fun ProfileScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Chudhary Wajeeh", style = MaterialTheme.typography.titleLarge,
+                    text = userName, style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.SemiBold
                 )
-                Text(
-                    text = "myapp@gmail.com", style = MaterialTheme.typography.titleMedium,
-                    color = Color.Gray
-                )
             }
-            Spacer(modifier = Modifier.height(50.dp))
-
-            Text(
-                text = "Address", style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = address, style = MaterialTheme.typography.bodyMedium,
-                color = Color.DarkGray
-            )
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(80.dp))
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -106,6 +97,12 @@ fun ProfileScreen(navController: NavController) {
                 Column(
                     modifier = Modifier.padding(20.dp)
                 ) {
+                    ProfileSCard(navController = navController, cardDataList[2])
+                    ProfileCardDivider()
+                    ProfileSCard(navController = navController, cardDataList[3])
+                    ProfileCardDivider()
+                    ProfileSCard(navController = navController)
+                    ProfileCardDivider()
                     ProfileSCard(navController = navController, cardDataList[0])
                     ProfileCardDivider()
                     ProfileSCard(navController = navController, cardDataList[1])

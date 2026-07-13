@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileCardDivider() {
-    Spacer(modifier = Modifier.height(6.dp))
+    Spacer(modifier = Modifier.height(9.dp))
     HorizontalDivider(
         thickness = 1.dp, color = Color.Gray,
         modifier = Modifier
             .padding(horizontal = 2.dp)
             .fillMaxWidth()
     )
-    Spacer(modifier = Modifier.height(6.dp))
+    Spacer(modifier = Modifier.height(9.dp))
 }

@@ -11,6 +11,8 @@ import com.chaighar.presentation.uiscreens.detail_screen.DetailedScreen
 import com.chaighar.presentation.uiscreens.favourite_screen.FavouritesScreen
 import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
 import com.chaighar.presentation.uiscreens.profile_screen.ProfileScreen
+import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.AccountInfo
+import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.PersonalInfo
 import com.chaighar.presentation.uiscreens.signup_screens.LoginScreen
 import com.chaighar.presentation.uiscreens.signup_screens.SignUpScreen
 import com.chaighar.presentation.uiscreens.welcomeS.WelcomeScreen
@@ -57,6 +59,14 @@ fun NavGraph() {
 
         composable<Routes.ProfileScreen> {
             ProfileScreen(navController = navController)
+        }
+
+        composable<Routes.PersonalInfo> {
+            PersonalInfo(navController = navController)
+        }
+
+        composable<Routes.AccountInfo> {
+            AccountInfo(navController = navController)
         }
     }
 }

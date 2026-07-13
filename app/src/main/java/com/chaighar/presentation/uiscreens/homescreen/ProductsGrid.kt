@@ -16,7 +16,9 @@ import com.chaighar.domain.model.ProductModel
 fun ProductsGrid(
     products: List<ProductModel>,
     navController: NavController,
+    onFavoriteClick: (ProductModel) -> Unit,
     topContent: @Composable () -> Unit
+
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -31,13 +33,15 @@ fun ProductsGrid(
                 ProductCard(
                     product = rowItems[0],
                     modifier = Modifier.weight(1f),
-                    navController = navController
+                    navController = navController,
+                    onFavoriteClick = onFavoriteClick
                 )
                 if (rowItems.size == 2) {
                     ProductCard(
                         product = rowItems[1],
                         modifier = Modifier.weight(1f),
-                        navController = navController
+                        navController = navController,
+                        onFavoriteClick = onFavoriteClick
                     )
                 }else {
                     Spacer(modifier = Modifier.weight(1f))

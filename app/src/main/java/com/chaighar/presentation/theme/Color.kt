@@ -22,3 +22,5 @@ val ChaiBrown = Color(0xFFC47B4D)
 val GrayLight = Color(0xFFE1E1E1)
 
 val BlueLight = Color(0xFF2196F3)
+
+val BrownLight = Color(0xFFE7966F)

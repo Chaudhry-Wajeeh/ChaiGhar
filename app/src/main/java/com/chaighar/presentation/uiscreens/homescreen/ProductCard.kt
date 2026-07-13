@@ -41,13 +41,14 @@ import com.chaighar.presentation.theme.LightBrown
 
 @Composable
 fun ProductCard(
-    product: ProductModel, modifier: Modifier = Modifier, navController: NavController
+    product: ProductModel, modifier: Modifier = Modifier, navController: NavController,
+    onFavoriteClick: (ProductModel) -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 5.dp, vertical = 10.dp)
-            .clickable{ navController.navigate(Routes.DetailedScreen(product.id) ) },
+            .clickable { navController.navigate(Routes.DetailedScreen(product.id)) },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -55,8 +56,8 @@ fun ProductCard(
         Column(modifier = Modifier.padding(7.dp)) {
             Box(
                 modifier = Modifier
-                .fillMaxWidth()
-                .height(175.dp)
+                    .fillMaxWidth()
+                    .height(175.dp)
             ) {
                 Image(
                     painter = painterResource(product.imageRes),
@@ -68,12 +69,14 @@ fun ProductCard(
                 )
 
                 Box(
-                    modifier = Modifier.align(alignment = Alignment.TopEnd)
+                    modifier = Modifier
+                        .align(alignment = Alignment.TopEnd)
                         .padding(5.dp)
-                        .clickable(onClick = {})
+                        .clip(RoundedCornerShape(12.dp))
                         .background(
                             color = GrayLight.copy(alpha = 0.7f), shape = RoundedCornerShape(12.dp)
                         )
+                        .clickable { onFavoriteClick(product) }
                         .padding(horizontal = 6.dp, vertical = 2.dp)
                 ) {
                     Icon(
@@ -114,7 +117,7 @@ fun ProductCard(
                 )
 
                 IconButton(
-                    onClick = {},
+                    onClick = { },
                     modifier = Modifier.background(
                         color = LightBrown, shape = RoundedCornerShape(12.dp)
                     )

@@ -124,7 +124,8 @@ fun HomeScreen(navController: NavController) {
                 products = products, navController = navController, onFavoriteClick = {clickedProduct ->
 
                     favViewModel.addFavourite(
-                        productId = clickedProduct.id, name = clickedProduct.name, description = clickedProduct.description
+                        productId = clickedProduct.id, name = clickedProduct.name,
+                        description = clickedProduct.description
                     ){
                         if (it) {
                             showFavDialog = true

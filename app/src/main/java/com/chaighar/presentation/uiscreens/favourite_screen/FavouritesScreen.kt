@@ -46,7 +46,7 @@ fun FavouritesScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             items(favouriteItems) { product ->
-                FavouriteItemCard(product = product) {
+                FavouriteItemCard(navController = navController ,product = product) {
                     favViewModel.removeFavorite(product.id){
                     if (!it) {
                         Toast.makeText(context, "Could not remove item", Toast.LENGTH_SHORT).show()

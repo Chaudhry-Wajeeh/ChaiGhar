@@ -2,6 +2,7 @@ package com.chaighar.presentation.uiscreens.favourite_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,19 +34,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.GrayLight
 import com.chaighar.presentation.theme.LightBrown
 
 
 @Composable
-fun FavouriteItemCard(product: ProductModel, onRemove: () -> Unit) {
+fun FavouriteItemCard(navController: NavController, product: ProductModel, onRemove: () -> Unit) {
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp)
+            .clickable{ navController.navigate(Routes.DetailedScreen(productId = product.id)) },
         colors = CardDefaults.cardColors(containerColor = GrayLight),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(10.dp),

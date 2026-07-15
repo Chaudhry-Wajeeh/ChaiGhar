@@ -6,7 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -75,7 +77,8 @@ fun CartItemCart(navController: NavController ,product: ProductModel, onQuantity
                 )
 
             }
-            Column() {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Spacer(modifier = Modifier.height(6.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -114,12 +117,12 @@ fun CartItemCart(navController: NavController ,product: ProductModel, onQuantity
                         )
                     }
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
                 IconButton(
                     onClick = onRemove, enabled = true,
                     modifier = Modifier.background(
                         color = LightBrown.copy(alpha = 0.1f), shape = CircleShape
-                    ).size(40.dp)
+                    ).size(35.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete, contentDescription = "Remove From Cart",

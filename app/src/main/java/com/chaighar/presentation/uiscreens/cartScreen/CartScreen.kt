@@ -1,5 +1,6 @@
 package com.chaighar.presentation.uiscreens.cartScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +50,8 @@ import com.chaighar.presentation.ui_components.BottomNavbar
 fun CartScreen(navController: NavController) {
 
     val cartViewModel: CartViewModel = viewModel()
+    val context = LocalContext.current
+
     LaunchedEffect(Unit) {
         cartViewModel.getCartItems()
     }
@@ -76,7 +79,16 @@ fun CartScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 cartItems.forEach { product ->
-                    CartItemCart(navController = navController, product, onQuantityChange = {cartViewModel.updateQuantity(productId = product.id, it)})
+                    CartItemCart(
+                        navController = navController, product, onQuantityChange = {cartViewModel.updateQuantity(productId = product.id, it)},
+                        onRemove = {
+                            cartViewModel.removeFromCart(productId = product.id) {
+                            if (!it) {
+                                Toast.makeText(context, "Could not remove item", Toast.LENGTH_SHORT).show()
+                            }
+                            }
+                        }
+                    )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 

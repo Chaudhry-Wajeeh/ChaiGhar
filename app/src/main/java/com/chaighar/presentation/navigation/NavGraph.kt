@@ -12,6 +12,7 @@ import com.chaighar.presentation.uiscreens.favourite_screen.FavouritesScreen
 import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
 import com.chaighar.presentation.uiscreens.profile_screen.ProfileScreen
 import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.AccountInfo
+import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.DeleteAccount
 import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.PersonalInfo
 import com.chaighar.presentation.uiscreens.signup_screens.LoginScreen
 import com.chaighar.presentation.uiscreens.signup_screens.SignUpScreen
@@ -61,12 +62,17 @@ fun NavGraph() {
             ProfileScreen(navController = navController)
         }
 
-        composable<Routes.PersonalInfo> {
-            PersonalInfo(navController = navController)
+        composable<Routes.PersonalInfo> { backStackEntry ->
+            val args = backStackEntry.toRoute<Routes.PersonalInfo>()
+            PersonalInfo(navController = navController, userName = args.userName)
         }
 
         composable<Routes.AccountInfo> {
             AccountInfo(navController = navController)
+        }
+
+        composable<Routes.DeleteAccount> {
+            DeleteAccount(navController = navController)
         }
     }
 }

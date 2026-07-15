@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.NoAccounts
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
@@ -48,8 +49,9 @@ fun ProfileScreen(navController: NavController) {
     val cardDataList = listOf(
         ProfileCardModel(icon = Icons.Default.ShoppingCart, text = "Cart", onClick = { navController.navigate(Routes.CartScreen) }),
         ProfileCardModel(icon = Icons.Default.Favorite, text = "Favourites", onClick = { navController.navigate(Routes.FavoriteScreen) }),
-        ProfileCardModel(icon = Icons.Default.Person, text = "Personal Info", onClick = { navController.navigate(Routes.PersonalInfo) }),
-        ProfileCardModel(icon = Icons.Default.AccountCircle, text = "Account Info", onClick = { navController.navigate(Routes.AccountInfo) })
+        ProfileCardModel(icon = Icons.Default.Person, text = "Personal Info", onClick = { navController.navigate(Routes.PersonalInfo(userName = userName)) }),
+        ProfileCardModel(icon = Icons.Default.AccountCircle, text = "Account Info", onClick = { navController.navigate(Routes.AccountInfo) }),
+        ProfileCardModel(icon = Icons.Default.NoAccounts, text = "Delete Account", onClick = {navController.navigate(Routes.DeleteAccount)})
     )
 
     Scaffold(
@@ -81,14 +83,8 @@ fun ProfileScreen(navController: NavController) {
                         tint = LightBrown
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = userName, style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold
-                )
             }
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(60.dp))
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
@@ -106,6 +102,8 @@ fun ProfileScreen(navController: NavController) {
                     ProfileSCard(navController = navController, cardDataList[0])
                     ProfileCardDivider()
                     ProfileSCard(navController = navController, cardDataList[1])
+                    ProfileCardDivider()
+                    ProfileSCard(navController = navController, cardDataList[4])
                 }
             }
         }

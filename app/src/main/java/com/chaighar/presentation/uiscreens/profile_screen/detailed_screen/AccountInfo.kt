@@ -29,7 +29,7 @@ fun AccountInfo(navController: NavController) {
     val userEmail = currentUser?.email ?: "myapp@gmail.com"
 
     Scaffold(
-        topBar = { TBAccountInfo(navController = navController) }
+        topBar = { TBarProfileDScreens(navController = navController, "Account Info") }
     ) { innerPadding ->
 
         Card(

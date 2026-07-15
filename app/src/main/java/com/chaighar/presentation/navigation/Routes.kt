@@ -29,8 +29,11 @@ sealed class Routes {
     object SignUpScreen: Routes()
 
     @Serializable
-    object PersonalInfo: Routes()
+    data class PersonalInfo(val userName: String = "No Name"): Routes()
 
     @Serializable
     object AccountInfo: Routes()
+
+    @Serializable
+    object DeleteAccount: Routes()
 }

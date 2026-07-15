@@ -20,12 +20,12 @@ import com.chaighar.presentation.theme.IvoryWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TBarPersonalInfo(navController: NavController) {
+fun TBarProfileDScreens(navController: NavController, title: String = "No Title") {
     TopAppBar(
         title = {
             Text(
-                text = "Personal Info", modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold
+                text = title, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold, maxLines = 1
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = IvoryWhite),

@@ -22,34 +22,68 @@ import com.chaighar.presentation.theme.ChaiBrown
 import com.chaighar.presentation.theme.IvoryWhite
 
 @Composable
-fun PersonalInfo(navController: NavController) {
+fun PersonalInfo(navController: NavController, userName: String = "No Name") {
     val address = "Kuri Road,\nShakrial Rawalpindi,\nPunjab - 44001"
 
     Scaffold(
-        topBar = { TBarPersonalInfo(navController = navController) }
+        topBar = { TBarProfileDScreens(navController = navController, "Personal Info") }
     ) { innerPadding ->
 
-        Card(
-            modifier = Modifier.padding(innerPadding).padding(16.dp).fillMaxWidth(),
-            elevation = CardDefaults.elevatedCardElevation(10.dp)
+        Column(
+            modifier = Modifier.padding(innerPadding)
         ) {
-            Column(
-                modifier = Modifier,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Card(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                elevation = CardDefaults.elevatedCardElevation(10.dp)
             ) {
-                Box(modifier = Modifier.fillMaxWidth().height(50.dp).background(color = ChaiBrown)
-                    , contentAlignment = Alignment.Center
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().height(50.dp)
+                            .background(color = ChaiBrown), contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Address", style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.SemiBold, color = IvoryWhite
+                        )
+                    }
+
                     Text(
-                        text = "Address", style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.SemiBold, color = IvoryWhite
+                        text = address,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(vertical = 14.dp).padding(start = 10.dp)
                     )
                 }
+            }
 
-                Text(
-                    text = address, style = MaterialTheme.typography.bodyMedium,
-                    color = Color.DarkGray, modifier = Modifier.padding(vertical = 14.dp).padding(start = 10.dp)
-                )
+            Card(
+                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                elevation = CardDefaults.elevatedCardElevation(10.dp)
+            ) {
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().height(50.dp)
+                            .background(color = ChaiBrown), contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "Name", style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.SemiBold, color = IvoryWhite
+                        )
+                    }
+
+                    Text(
+                        text = userName,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.DarkGray,
+                        modifier = Modifier.padding(vertical = 14.dp).padding(start = 10.dp)
+                    )
+                }
             }
         }
     }

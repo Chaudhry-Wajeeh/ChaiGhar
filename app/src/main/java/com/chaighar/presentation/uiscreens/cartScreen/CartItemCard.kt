@@ -2,6 +2,7 @@ package com.chaighar.presentation.uiscreens.cartScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,18 +33,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.chaighar.domain.model.ProductModel
+import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.GrayLight
 import com.chaighar.presentation.theme.LightBrown
 
 
 @Composable
-fun CartItemCart(product: ProductModel) {
-
-    var quantity by rememberSaveable { mutableStateOf(1) }
+fun CartItemCart(navController: NavController ,product: ProductModel, onQuantityChange: (Int) -> Unit, onRemove: () -> Unit = {}) {
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(top = 4.dp, bottom = 8.dp).clickable{ navController.navigate(Routes.DetailedScreen(productId = product.id)) },
         colors = CardDefaults.cardColors(containerColor = GrayLight),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
@@ -73,38 +75,55 @@ fun CartItemCart(product: ProductModel) {
                 )
 
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.padding(end = 6.dp)
-            ) {
-                IconButton(
-                    onClick = { quantity-- }, enabled = quantity > 1,
-                    modifier = Modifier.background(
-                        color = LightBrown.copy(alpha = 0.15f), shape = CircleShape
-                    ).size(24.dp)
+            Column() {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.padding(end = 6.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Remove, contentDescription = "Decrease",
-                        tint = LightBrown
+                    IconButton(
+                        onClick = { onQuantityChange(product.quantity - 1) },
+                        enabled = product.quantity > 1,
+                        modifier = Modifier.background(
+                            color = LightBrown.copy(alpha = 0.15f), shape = CircleShape
+                        ).size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Remove, contentDescription = "Decrease",
+                            tint = LightBrown
+                        )
+                    }
+
+                    Text(
+                        text = product.quantity.toString(),
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.SemiBold
+                        )
                     )
+
+                    IconButton(
+                        onClick = { onQuantityChange(product.quantity + 1) },
+                        enabled = product.quantity < 20,
+                        modifier = Modifier.background(
+                            color = LightBrown.copy(alpha = 0.15f), shape = CircleShape
+                        ).size(24.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add, contentDescription = "Increase",
+                            tint = LightBrown
+                        )
+                    }
                 }
 
-                Text(
-                    text = quantity.toString(), style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.SemiBold
-                    )
-                )
-
                 IconButton(
-                    onClick = { quantity++ },enabled = quantity < 20,
+                    onClick = onRemove, enabled = true,
                     modifier = Modifier.background(
-                        color = LightBrown.copy(alpha = 0.15f), shape = CircleShape
-                    ).size(24.dp)
+                        color = LightBrown.copy(alpha = 0.1f), shape = CircleShape
+                    ).size(40.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Add, contentDescription = "Increase",
-                        tint = LightBrown
+                        imageVector = Icons.Default.Delete, contentDescription = "Remove From Cart",
+                        tint = MaterialTheme.colorScheme.error
                     )
                 }
             }

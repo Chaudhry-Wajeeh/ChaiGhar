@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.CartViewModel
 import com.chaighar.backend.viewmodel.FavViewModel
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.ui_components.AppMessage
@@ -25,14 +26,16 @@ fun DetailedScreen(productId: Int, navController: NavController) {
     val context = LocalContext.current
     val favViewModel: FavViewModel = viewModel()
     var showFavDialog by remember { mutableStateOf(false) }
+    val cartViewModel: CartViewModel = viewModel()
+    var showCartDialog by remember { mutableStateOf(false) }
 
     val products = listOf(
         ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 40.0, imageRes = R.drawable.doodh_patti),
-        ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 60.0, imageRes = R.drawable.kashmiri_chai),
-        ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 50.0, imageRes = R.drawable.masala_chai),
+        ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 80.0, imageRes = R.drawable.kashmiri_chai),
+        ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 60.0, imageRes = R.drawable.masala_chai),
         ProductModel(id = 4, name = "Karak Chai", description = "Garhi chai", price = 50.0, imageRes = R.drawable.karak_chai),
-        ProductModel(id = 5, name = "Irani Chai", description = "Karhi khoya chai", price = 50.0, imageRes = R.drawable.iran_chai),
-        ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
+        ProductModel(id = 5, name = "Irani Chai", description = "Karhi khoya chai", price = 70.0, imageRes = R.drawable.iran_chai),
+        ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 40.0, imageRes = R.drawable.sulmani_chai),
     )
 
     val selectedProduct = products.find { it.id == productId }
@@ -44,9 +47,7 @@ fun DetailedScreen(productId: Int, navController: NavController) {
     Scaffold(
         topBar = {DetailScreenTBar(navController = navController, onFavoriteClick = {
             favViewModel.addFavourite(
-                productId = selectedProduct.id,
-                name = selectedProduct.name,
-                description = selectedProduct.description
+                productId = selectedProduct.id, name = selectedProduct.name, description = selectedProduct.description
             ) {
                 if (it) {
                     showFavDialog = true
@@ -57,7 +58,22 @@ fun DetailedScreen(productId: Int, navController: NavController) {
         }
         )
                  },
-        bottomBar = {DetailSBottomBar()}
+        bottomBar = {
+            DetailSBottomBar(onCartClick =
+                {
+                    cartViewModel.addToCart(
+                        productId = selectedProduct.id, name = selectedProduct.name,
+                        description = selectedProduct.description, price = selectedProduct.price
+                    ) {
+                        if (it) {
+                            showCartDialog = true
+                        }else {
+                            Toast.makeText(context, "Failed to add to Cart", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            )
+        }
     ) { innerPadding ->
         LazyColumn {
             item {
@@ -71,5 +87,10 @@ fun DetailedScreen(productId: Int, navController: NavController) {
         show = showFavDialog, title = "Added to Favourites",
         message = "Item has been added to Favourites.",
         onDismiss = { showFavDialog = false }
+    )
+    AppMessage(
+        show = showCartDialog, title = "Added to Cart",
+        message = "Item has been added to your cart.",
+        onDismiss = { showCartDialog = false }
     )
 }

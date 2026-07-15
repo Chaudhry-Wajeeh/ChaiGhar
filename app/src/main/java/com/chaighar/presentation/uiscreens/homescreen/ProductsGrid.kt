@@ -17,6 +17,7 @@ fun ProductsGrid(
     products: List<ProductModel>,
     navController: NavController,
     onFavoriteClick: (ProductModel) -> Unit,
+    onCartClick: (ProductModel) -> Unit,
     topContent: @Composable () -> Unit
 
 ) {
@@ -34,14 +35,16 @@ fun ProductsGrid(
                     product = rowItems[0],
                     modifier = Modifier.weight(1f),
                     navController = navController,
-                    onFavoriteClick = onFavoriteClick
+                    onFavoriteClick = onFavoriteClick,
+                    onCartClick = onCartClick
                 )
                 if (rowItems.size == 2) {
                     ProductCard(
                         product = rowItems[1],
                         modifier = Modifier.weight(1f),
                         navController = navController,
-                        onFavoriteClick = onFavoriteClick
+                        onFavoriteClick = onFavoriteClick,
+                        onCartClick = onCartClick
                     )
                 }else {
                     Spacer(modifier = Modifier.weight(1f))

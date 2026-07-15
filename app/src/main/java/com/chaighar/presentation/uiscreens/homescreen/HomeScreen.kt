@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.CartViewModel
 import com.chaighar.backend.viewmodel.FavViewModel
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.navigation.Routes
@@ -55,6 +56,7 @@ fun HomeScreen(navController: NavController) {
     val favViewModel: FavViewModel = viewModel()
     var showFavDialog by remember { mutableStateOf(false) }
 
+    val cartViewModel: CartViewModel = viewModel()
 
     LaunchedEffect(Unit) {
         auth.currentUser?.reload()?.addOnCompleteListener { task ->
@@ -86,7 +88,6 @@ fun HomeScreen(navController: NavController) {
                     )
                 )
         )
-
         Column(
             modifier = Modifier.fillMaxSize().padding(innerPadding)
                 .padding(start = 15.dp, end = 10.dp, top = 12.dp, bottom = 10.dp)
@@ -113,16 +114,14 @@ fun HomeScreen(navController: NavController) {
 
             val products = listOf(
                 ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 40.0, imageRes = R.drawable.doodh_patti),
-                ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 60.0, imageRes = R.drawable.kashmiri_chai),
-                ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 50.0, imageRes = R.drawable.masala_chai),
+                ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 80.0, imageRes = R.drawable.kashmiri_chai),
+                ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 60.0, imageRes = R.drawable.masala_chai),
                 ProductModel(id = 4, name = "Karak Chai", description = "Garhi chai", price = 50.0, imageRes = R.drawable.karak_chai),
-                ProductModel(id = 5, name = "Irani Chai", description = "Karhi khoya chai", price = 50.0, imageRes = R.drawable.iran_chai),
-                ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 50.0, imageRes = R.drawable.sulmani_chai),
+                ProductModel(id = 5, name = "Irani Chai", description = "Karhi khoya chai", price = 70.0, imageRes = R.drawable.iran_chai),
+                ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 40.0, imageRes = R.drawable.sulmani_chai),
             )
-
             ProductsGrid(
                 products = products, navController = navController, onFavoriteClick = {clickedProduct ->
-
                     favViewModel.addFavourite(
                         productId = clickedProduct.id, name = clickedProduct.name,
                         description = clickedProduct.description
@@ -133,9 +132,20 @@ fun HomeScreen(navController: NavController) {
                             Toast.makeText(context, "Failed to add to Favourites", Toast.LENGTH_SHORT).show()
                         }
                     }
+                },
+                onCartClick = { clickedProduct ->
+                    cartViewModel.addToCart(
+                        productId = clickedProduct.id, name = clickedProduct.name,
+                        description = clickedProduct.description, price = clickedProduct.price
+                    ) {
+                        if (it) {
+                            Toast.makeText(context, "Added to Cart", Toast.LENGTH_SHORT).show()
+                        }else {
+                            Toast.makeText(context, "Failed to add to Cart", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             ) {
-
                 Spacer(modifier = Modifier.height(20.dp))
                 Image(
                     painter = painterResource(R.drawable.promo_h_banner_1), contentDescription = "Promo Home Banner",
@@ -143,13 +153,11 @@ fun HomeScreen(navController: NavController) {
                         topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp
                     ))
                 )
-
                 Spacer(modifier = Modifier.height(20.dp))
                 HomeCategories()
             }
         }
     }
-
     AppMessage(
         show = showFavDialog, title = "Added to Favourites",
         message = "Item has been added to Favourites.",

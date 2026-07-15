@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,13 +29,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.chaighar.R
+import com.chaighar.backend.viewmodel.CartViewModel
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.theme.LightBrown
@@ -43,14 +47,16 @@ import com.chaighar.presentation.ui_components.BottomNavbar
 
 @Composable
 fun CartScreen(navController: NavController) {
-    val cartProducts = listOf(
-        ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 40.0, imageRes = R.drawable.doodh_patti),
-        ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 60.0, imageRes = R.drawable.kashmiri_chai),
-        ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 50.0, imageRes = R.drawable.masala_chai),
-    )
-    var amount by remember { mutableStateOf(150.0) }
-    var deliveryFee by remember { mutableStateOf(20.0) }
-    var total by remember { mutableStateOf(amount + deliveryFee) }
+
+    val cartViewModel: CartViewModel = viewModel()
+    LaunchedEffect(Unit) {
+        cartViewModel.getCartItems()
+    }
+    val cartItems by cartViewModel.cartItems
+
+    val amount = cartItems.sumOf { it.price * it.quantity}
+    val deliveryFee = if (cartItems.isEmpty()) 0.0 else 19.99
+    val total = amount + deliveryFee
 
     Scaffold(
         topBar = {CartSTopBar()},
@@ -69,8 +75,8 @@ fun CartScreen(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
-                cartProducts.forEach { product ->
-                    CartItemCart(product)
+                cartItems.forEach { product ->
+                    CartItemCart(navController = navController, product, onQuantityChange = {cartViewModel.updateQuantity(productId = product.id, it)})
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -110,7 +116,7 @@ fun CartScreen(navController: NavController) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(text = "Total", fontSize = 18.sp)
-                    Text(text = "PKR $total", fontSize = 18.sp)
+                    Text(text = "PKR ${"%.2f".format(total)}", fontSize = 18.sp)
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 

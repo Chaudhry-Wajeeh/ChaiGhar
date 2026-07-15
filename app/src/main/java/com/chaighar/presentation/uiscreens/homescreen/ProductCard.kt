@@ -42,7 +42,7 @@ import com.chaighar.presentation.theme.LightBrown
 @Composable
 fun ProductCard(
     product: ProductModel, modifier: Modifier = Modifier, navController: NavController,
-    onFavoriteClick: (ProductModel) -> Unit
+    onFavoriteClick: (ProductModel) -> Unit, onCartClick: (ProductModel) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -117,7 +117,7 @@ fun ProductCard(
                 )
 
                 IconButton(
-                    onClick = { },
+                    onClick = { onCartClick(product) },
                     modifier = Modifier.background(
                         color = LightBrown, shape = RoundedCornerShape(12.dp)
                     )

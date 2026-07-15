@@ -79,7 +79,7 @@ fun PaymentSelectionCard(total: Double) {
                         Spacer(modifier = Modifier.height(4.dp))
 
                         Text(
-                            text = "Pkr $total",
+                            text = "PKR ${"%.2f".format(total)}",
                             style = MaterialTheme.typography.bodyMedium,
                             color = LightBrown
                         )

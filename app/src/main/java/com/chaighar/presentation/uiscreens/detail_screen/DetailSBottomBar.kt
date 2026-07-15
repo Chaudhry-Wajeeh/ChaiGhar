@@ -28,9 +28,7 @@ import com.chaighar.presentation.theme.LightBrown
 import com.chaighar.presentation.ui_components.AppMessage
 
 @Composable
-fun DetailSBottomBar() {
-    var showCartDialog by remember { mutableStateOf(false) }
-
+fun DetailSBottomBar(onCartClick: () -> Unit) {
     BottomAppBar(
         containerColor = Color.Transparent
     ) {
@@ -48,7 +46,7 @@ fun DetailSBottomBar() {
             Spacer(modifier = Modifier.width(50.dp))
 
             Button(
-                onClick = { showCartDialog = true }
+                onClick = { onCartClick() }
                 , modifier = Modifier.weight(1f).height(56.dp)
                     .align(alignment = Alignment.CenterVertically),
                 shape = RoundedCornerShape(18.dp),
@@ -61,11 +59,6 @@ fun DetailSBottomBar() {
                 )
             }
 
-            AppMessage(
-                show = showCartDialog, title = "Added to Cart",
-                message = "Item has been added to your cart.",
-                onDismiss = { showCartDialog = false }
-            )
         }
     }
 }

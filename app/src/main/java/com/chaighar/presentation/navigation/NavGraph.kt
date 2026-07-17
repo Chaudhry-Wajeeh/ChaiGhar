@@ -13,6 +13,7 @@ import com.chaighar.presentation.uiscreens.homescreen.HomeScreen
 import com.chaighar.presentation.uiscreens.profile_screen.ProfileScreen
 import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.AccountInfo
 import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.DeleteAccount
+import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.LogoutScreen
 import com.chaighar.presentation.uiscreens.profile_screen.detailed_screen.PersonalInfo
 import com.chaighar.presentation.uiscreens.signup_screens.LoginScreen
 import com.chaighar.presentation.uiscreens.signup_screens.SignUpScreen
@@ -73,6 +74,10 @@ fun NavGraph() {
 
         composable<Routes.DeleteAccount> {
             DeleteAccount(navController = navController)
+        }
+
+        composable<Routes.Logout> {
+            LogoutScreen(navController = navController)
         }
     }
 }

@@ -26,8 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,7 +37,7 @@ import com.chaighar.presentation.theme.IvoryWhite
 import com.chaighar.presentation.theme.LightBrown
 
 @Composable
-fun DeleteAccount(navController: NavController) {
+fun LogoutScreen(navController: NavController) {
 
     val authViewModel: AuthViewModel = viewModel()
     val context = LocalContext.current
@@ -47,7 +45,7 @@ fun DeleteAccount(navController: NavController) {
 
 
     Scaffold(
-        topBar = { TBarProfileDScreens(navController = navController, "Delete Account") }
+        topBar = { TBarProfileDScreens(navController = navController, "Logout") }
     ) { innerPadding ->
         Card(
             modifier = Modifier
@@ -64,7 +62,7 @@ fun DeleteAccount(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Are you sure you want to delete this account?",
+                    text = "Are you sure you want to logout of this account?",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontSize = 24.sp,
                         color = Color.Black
@@ -75,7 +73,7 @@ fun DeleteAccount(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "This action is permanent and will wipe all your data",
+                    text = "This action will log you out of your account",
                     style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
                     textAlign = TextAlign.Center
                 )
@@ -92,24 +90,24 @@ fun DeleteAccount(navController: NavController) {
                         Button(
                             onClick = {
                                 isLoading = true
-                                authViewModel.deleteAccount { success, error ->
+                                authViewModel.logout {
                                     isLoading = false
-                                    if (success) {
-                                        Toast.makeText(context, "Account deleted successfully", Toast.LENGTH_SHORT).show()
-                                        navController.navigate(Routes.LoginScreen) {
-                                            popUpTo(0) { inclusive = true }
-                                        }
-                                    } else {
-                                        if (error?.contains("recent-login", ignoreCase = true) == true) {
-                                            Toast.makeText(context, "For security, please log out and log back in before deleting.", Toast.LENGTH_LONG).show()
-                                        } else {
-                                            Toast.makeText(context, "Error: $error", Toast.LENGTH_LONG).show()
-                                        }
+                                    Toast.makeText(
+                                        context,
+                                        "Logged out successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    navController.navigate(Routes.LoginScreen) {
+                                        popUpTo(0) {inclusive = true}
                                     }
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(LightBrown),
-                            modifier = Modifier.height(50.dp).weight(1f).padding(horizontal = 8.dp),
+                            modifier = Modifier
+                                .height(50.dp)
+                                .weight(1f)
+                                .padding(horizontal = 8.dp),
                             shape = RoundedCornerShape(10.dp)
                         ) {
                             Text(text = "Yes", color = IvoryWhite, fontSize = 18.sp)
@@ -118,7 +116,10 @@ fun DeleteAccount(navController: NavController) {
                         Button(
                             onClick = { navController.navigateUp() },
                             colors = ButtonDefaults.buttonColors(LightBrown),
-                            modifier = Modifier.height(50.dp).weight(1f).padding(horizontal = 8.dp),
+                            modifier = Modifier
+                                .height(50.dp)
+                                .weight(1f)
+                                .padding(horizontal = 8.dp),
                             shape = RoundedCornerShape(10.dp)
                         ) {
                             Text(text = "No", color = IvoryWhite, fontSize = 18.sp)
@@ -128,54 +129,4 @@ fun DeleteAccount(navController: NavController) {
             }
         }
     }
-
-
-    /*Scaffold(
-        topBar = { TBarProfileDScreens(navController = navController, "Delete Account") }
-    ) { innerPadding ->
-        Card(modifier = Modifier.fillMaxWidth().padding(innerPadding).padding(horizontal = 10.dp, vertical = 20.dp)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Text(
-                    text = "Are you sure you want to delete this account",
-                    style = MaterialTheme.typography.titleLarge.copy(
-                        fontSize = 30.sp, color = Color.Black
-                    )
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-
-                    Button(
-                        onClick = {},
-                        colors = ButtonDefaults.buttonColors(LightBrown),
-                        modifier = Modifier.height(50.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text(
-                            text = "Yes", color = Color.White,
-                            fontSize = 18.sp
-                        )
-                    }
-
-                    Button(
-                        onClick = { navController.navigateUp() },
-                        colors = ButtonDefaults.buttonColors(LightBrown),
-                        modifier = Modifier.height(50.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text(
-                            text = "No", color = Color.White,
-                            fontSize = 18.sp
-                        )
-                    }
-                }
-            }
-        }
-    }*/
 }

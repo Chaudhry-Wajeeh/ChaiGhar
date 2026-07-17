@@ -77,4 +77,9 @@ class AuthViewModel: ViewModel() {
             }
         }
     }
+
+    fun logout(onComplete: () -> Unit) {
+        auth.signOut()
+        onComplete()
+    }
 }

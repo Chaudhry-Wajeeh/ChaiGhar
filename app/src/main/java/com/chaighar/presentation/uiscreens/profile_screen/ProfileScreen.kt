@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.NoAccounts
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -51,7 +53,8 @@ fun ProfileScreen(navController: NavController) {
         ProfileCardModel(icon = Icons.Default.Favorite, text = "Favourites", onClick = { navController.navigate(Routes.FavoriteScreen) }),
         ProfileCardModel(icon = Icons.Default.Person, text = "Personal Info", onClick = { navController.navigate(Routes.PersonalInfo(userName = userName)) }),
         ProfileCardModel(icon = Icons.Default.AccountCircle, text = "Account Info", onClick = { navController.navigate(Routes.AccountInfo) }),
-        ProfileCardModel(icon = Icons.Default.NoAccounts, text = "Delete Account", onClick = {navController.navigate(Routes.DeleteAccount)})
+        ProfileCardModel(icon = Icons.Default.NoAccounts, text = "Delete Account", onClick = {navController.navigate(Routes.DeleteAccount)}),
+        ProfileCardModel(icon = Icons.AutoMirrored.Filled.Logout, text = "Logout", onClick = {navController.navigate(Routes.Logout)})
     )
 
     Scaffold(
@@ -102,6 +105,8 @@ fun ProfileScreen(navController: NavController) {
                     ProfileSCard(navController = navController, cardDataList[0])
                     ProfileCardDivider()
                     ProfileSCard(navController = navController, cardDataList[1])
+                    ProfileCardDivider()
+                    ProfileSCard(navController = navController, cardDataList[5])
                     ProfileCardDivider()
                     ProfileSCard(navController = navController, cardDataList[4])
                 }

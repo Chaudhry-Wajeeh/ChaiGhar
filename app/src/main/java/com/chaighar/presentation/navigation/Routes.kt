@@ -36,4 +36,7 @@ sealed class Routes {
 
     @Serializable
     object DeleteAccount: Routes()
+
+    @Serializable
+    object Logout: Routes()
 }

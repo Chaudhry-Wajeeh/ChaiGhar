@@ -41,6 +41,7 @@ import androidx.navigation.NavController
 import com.chaighar.R
 import com.chaighar.backend.viewmodel.CartViewModel
 import com.chaighar.backend.viewmodel.FavViewModel
+import com.chaighar.backend.viewmodel.ProductsViewModel
 import com.chaighar.domain.model.ProductModel
 import com.chaighar.presentation.navigation.Routes
 import com.chaighar.presentation.ui_components.AppMessage
@@ -55,6 +56,7 @@ fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
     val favViewModel: FavViewModel = viewModel()
     var showFavDialog by remember { mutableStateOf(false) }
+    val productsViewModel: ProductsViewModel = viewModel()
 
     val cartViewModel: CartViewModel = viewModel()
 
@@ -112,14 +114,8 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(15.dp))
 
-            val products = listOf(
-                ProductModel(id = 1, name = "Doodh Patti", description = "Garam doodh main patti", price = 40.0, imageRes = R.drawable.doodh_patti),
-                ProductModel(id = 2, name = "Kashmiri Chai", description = "Pink Chai with dry fruits", price = 80.0, imageRes = R.drawable.kashmiri_chai),
-                ProductModel(id = 3, name = "Masala Chai", description = "Masla tarka in Chai", price = 60.0, imageRes = R.drawable.masala_chai),
-                ProductModel(id = 4, name = "Karak Chai", description = "Garhi chai", price = 50.0, imageRes = R.drawable.karak_chai),
-                ProductModel(id = 5, name = "Irani Chai", description = "Karhi khoya chai", price = 70.0, imageRes = R.drawable.iran_chai),
-                ProductModel(id = 6, name = "Sulaimani Chai", description = "Bagair doodh ka kawa chai", price = 40.0, imageRes = R.drawable.sulmani_chai),
-            )
+            val products = productsViewModel.productsList
+
             ProductsGrid(
                 products = products, navController = navController, onFavoriteClick = {clickedProduct ->
                     favViewModel.addFavourite(

@@ -32,5 +32,3 @@ fun HomeCategories() {
         }
     }
 }
-
-

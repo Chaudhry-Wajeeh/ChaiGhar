@@ -45,6 +45,16 @@ class ProductsViewModel: ViewModel() {
                 val price = document.getDouble("price") ?: 0.0
                 val imageRes = document.getLong("imageRes")?.toInt() ?: 0
 
+                /*val imageRes = when (id) {
+                    1 -> R.drawable.doodh_patti
+                    2 -> R.drawable.kashmiri_chai
+                    3 -> R.drawable.masala_chai
+                    4 -> R.drawable.karak_chai
+                    5 -> R.drawable.iran_chai
+                    6 -> R.drawable.sulmani_chai
+                    else -> R.drawable.doodh_patti
+                }*/
+
                 val product = ProductModel(
                     id = id,
                     name = name,

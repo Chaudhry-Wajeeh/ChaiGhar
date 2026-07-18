@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.ChaiGhar" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.ChaiGhar" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="Theme.ChaiGhar.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/chaigharlogo2</item>
+        <item name="postSplashScreenTheme">@style/Theme.ChaiGhar</item>
+    </style>
 </resources>
